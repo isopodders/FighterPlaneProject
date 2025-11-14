@@ -19,4 +19,15 @@ public class Enemy : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Bullet"))
+        {
+            // Increase score ONLY when hit by bullet
+            FindObjectOfType<ScoreManager>().AddScore(1);
+
+            Destroy(other.gameObject); // Destroy the bullet
+            Destroy(gameObject);       // Destroy the enemy
+        }
+    }
 }
