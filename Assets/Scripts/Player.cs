@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     {
         playerSpeed = 6f;
         //This function is called at the start of the game
-        
+
     }
 
     void Update()
@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
     void Shooting()
     {
         //if the player presses the SPACE key, create a projectile
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             Instantiate(bulletPrefab, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
         }
@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
         //Move the player
         transform.Translate(new Vector3(horizontalInput, verticalInput, 0) * Time.deltaTime * playerSpeed);
         //Player leaves the screen horizontally
-        if(transform.position.x > horizontalScreenLimit || transform.position.x <= -horizontalScreenLimit)
+        if (transform.position.x > horizontalScreenLimit || transform.position.x <= -horizontalScreenLimit)
         {
             transform.position = new Vector3(transform.position.x * -1, transform.position.y, 0);
         }
@@ -64,4 +64,22 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(transform.position.x, clampedY, 0);
     }
 
+    //repupused from bullet-enemy impact for player-coin impact
+    //private void OnTriggerEnter2D(Collider2D whatDidIHit)
+    //{
+        
+
+//}
+void OnTriggerEnter(Collider other)
+    { 
+        if (other.tag == "Coin")
+        {
+            Debug.Log("Just hit: " + other.tag);
+            FindObjectOfType<ScoreManager>().AddScore(1);
+
+            Destroy(other.gameObject);
+        }
+
+
+    }
 }
