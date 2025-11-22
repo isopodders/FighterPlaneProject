@@ -4,13 +4,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int damageAmount = -1;
 
-    // Update is called once per frame
     void Update()
     {
         transform.Translate(new Vector3(0, -1, 0) * Time.deltaTime * 3f);
@@ -19,15 +14,28 @@ public class Enemy : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Bullet"))
         {
-            // Increase score ONLY when hit by bullet
             FindObjectOfType<ScoreManager>().AddScore(1);
 
-            Destroy(other.gameObject); // Destroy the bullet
-            Destroy(gameObject);       // Destroy the enemy
+            Destroy(other.gameObject);
+            Destroy(gameObject);
+        }
+
+        if (other.CompareTag("Player"))
+        {
+            //  DAMAGE THE PLAYER HERE
+            Player player = other.GetComponent<Player>();  // Try to get the Player script
+
+            if (player != null)   // If found, deal damage
+            {
+                player.TakeDamage(damageAmount);
+            }
+
+            Destroy(gameObject);  // Enemy dies when touching player
         }
     }
 }
