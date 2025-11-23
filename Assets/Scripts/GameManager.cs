@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public float horizontalScreenSize;
-    public float verticalScreenSize;
+    private float horizontalScreenSize = 9.5f;
+    private float verticalScreenSize = 2.25f;
     public GameObject enemyOnePrefab;
     public GameObject enemyTwoPrefab;
     public GameObject coinPrefab;
@@ -13,9 +13,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        horizontalScreenSize = 10f;
-        verticalScreenSize = 6.5f;
-        InvokeRepeating("CreateEnemyOne", 1, 2);
+
+    InvokeRepeating("CreateEnemyOne", 1, 2);
         InvokeRepeating("CreateEnemyTwo", 0.5f, 5f);
 
         StartCoroutine(SpawnCoin());
@@ -40,7 +39,7 @@ public class GameManager : MonoBehaviour
 
     void CreateCoin()
     {
-        Instantiate(coinPrefab, new Vector3(Random.Range(-horizontalScreenSize * 0.8f, horizontalScreenSize * 0.8f), Random.Range(-verticalScreenSize, verticalScreenSize * 0.5f), 0), Quaternion.identity);
+        Instantiate(coinPrefab, new Vector3(Random.Range(-horizontalScreenSize * 0.8f, horizontalScreenSize * 0.8f), Random.Range(-verticalScreenSize, verticalScreenSize ), 0), Quaternion.identity);
 
     }
 
