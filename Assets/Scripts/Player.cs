@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     private float verticalScreenLimit = 3.25f;
 
     public GameObject bulletPrefab;
+    public GameObject bulletPrefab2;
 
 
     // Health System
@@ -23,6 +24,11 @@ public class Player : MonoBehaviour
     private int currentHealth;
 
     public Slider healthSlider;
+
+
+    public bool hasShield = false;
+    public AudioSource shieldUp;
+    public AudioSource shieldDown;
 
     void Start()
     {
@@ -58,6 +64,10 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Instantiate(bulletPrefab, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Instantiate(bulletPrefab2, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
         }
     }
 
@@ -96,9 +106,27 @@ public class Player : MonoBehaviour
             Destroy(other.gameObject);
         }
 
+        if (other.CompareTag("Shield"))
+        {
+            Debug.Log("Just hit: " + other.tag);
+            shieldUp.Play();
+            hasShield = true;
+            Destroy(other.gameObject);
+        }
+        //addShield
         if (other.CompareTag("Enemy"))
         {
-            TakeDamage(1);
+            if (hasShield == true)
+            {
+
+                hasShield = false;
+                shieldDown.Play();
+            }
+            else if (hasShield == false) 
+            {
+                TakeDamage(1);
+            }
+
         }
     }
 

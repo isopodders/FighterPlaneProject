@@ -8,7 +8,9 @@ public class GameManager : MonoBehaviour
     public float verticalScreenSize;
     public GameObject enemyOnePrefab;
     public GameObject enemyTwoPrefab;
+    public GameObject enemyThreePrefab;
     public GameObject coinPrefab;
+    public GameObject shieldPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -17,8 +19,11 @@ public class GameManager : MonoBehaviour
         verticalScreenSize = 6.5f;
         InvokeRepeating("CreateEnemyOne", 1, 2);
         InvokeRepeating("CreateEnemyTwo", 0.5f, 5f);
-
+        InvokeRepeating("CreateEnemyThree", 1, 2);
+        StartCoroutine(SpawnShield());
         StartCoroutine(SpawnCoin());
+
+
 
     }
 
@@ -28,9 +33,16 @@ public class GameManager : MonoBehaviour
        
     }
 
+
+
+    //create powerups and enemies
     void CreateEnemyOne()
     {
         Instantiate(enemyOnePrefab, new Vector3(Random.Range(-9f, 9f), 6.5f, 0), Quaternion.identity);
+    }
+    void CreateEnemyThree()
+    {
+        Instantiate(enemyThreePrefab, new Vector3(Random.Range(-4f, 14f), 6.5f, 0), Quaternion.identity);
     }
 
     void CreateEnemyTwo()
@@ -40,18 +52,36 @@ public class GameManager : MonoBehaviour
 
     void CreateCoin()
     {
-        Instantiate(coinPrefab, new Vector3(Random.Range(-horizontalScreenSize * 0.8f, horizontalScreenSize * 0.8f), Random.Range(-verticalScreenSize, verticalScreenSize * 0.5f), 0), Quaternion.identity);
+        Instantiate(coinPrefab, new Vector3(Random.Range(-horizontalScreenSize * 0.8f, horizontalScreenSize * 0.8f), Random.Range(-verticalScreenSize, verticalScreenSize * 0.3f), 0), Quaternion.identity);
+
+    }
+    void CreateShield()
+    {
+        Instantiate(shieldPrefab, new Vector3(Random.Range(-horizontalScreenSize * 0.8f, horizontalScreenSize * 0.8f), Random.Range(-verticalScreenSize, verticalScreenSize * 0.3f), 0), Quaternion.identity);
 
     }
 
 
-    //Runs every 3-5, calls create coin, and adds to the coinCounter. 
+    //Runs every 3-5, calls create coin
     IEnumerator SpawnCoin()
     {
 
-        float spawnTime = Random.Range(3, 5);
-        yield return new WaitForSeconds(spawnTime);
+        float coinSpawnTime = Random.Range(3, 5);
+        yield return new WaitForSeconds(coinSpawnTime);
         CreateCoin();
         StartCoroutine(SpawnCoin());
+    }
+
+
+
+
+    //Runs every 3-5, calls create shield
+    IEnumerator SpawnShield()
+    {
+        Debug.Log("SHIELD");
+        float shieldSpawnTime = 8;
+        yield return new WaitForSeconds(shieldSpawnTime);
+        CreateShield();
+        StartCoroutine(SpawnShield());
     }
 }

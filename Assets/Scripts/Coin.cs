@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    //Getting the coinCounterVariable from Game manager
-    
    
     void Start()
     {
@@ -15,6 +13,7 @@ public class Coin : MonoBehaviour
     void Update()
     {
 
+        //destroys after some time
 
         Destroy(this.gameObject, 8f);
     }

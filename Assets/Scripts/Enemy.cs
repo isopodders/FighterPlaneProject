@@ -25,15 +25,19 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
         }
 
+
+
+
+
         if (other.CompareTag("Player"))
         {
             //  DAMAGE THE PLAYER HERE
             Player player = other.GetComponent<Player>();  // Try to get the Player script
-
-            if (player != null)   // If found, deal damage
-            {
-                player.TakeDamage(damageAmount);
-            }
+    //removed due to redundancies in damaging the player
+            //    if (player != null)   // If found, deal damage
+            //    {
+            //        player.TakeDamage(damageAmount);
+            //    }
 
             Destroy(gameObject);  // Enemy dies when touching player
         }
