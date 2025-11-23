@@ -7,6 +7,7 @@ MonoImporter:
   - enemyOnePrefab: {fileID: 9207418728420716899, guid: 57d7aa5182902e24cb707961f14f52d5, type: 3}
   - enemyTwoPrefab: {fileID: 6923933393287372037, guid: fd91d893c887cf4408e5a810af7a2d6b, type: 3}
   - coinPrefab: {fileID: 100000, guid: 9c764d05711c45949800a053a67f1b06, type: 3}
+  - shieldPrefab: {fileID: 8075766149572302141, guid: d4b2024e00cbb3f4db9b2598fa12b68b, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

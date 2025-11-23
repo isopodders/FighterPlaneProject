@@ -41,11 +41,23 @@ public class EnemyTwo : MonoBehaviour
     {
         if (other.CompareTag("Bullet"))
         {
-            // Increase score ONLY when hit by bullet
             FindObjectOfType<ScoreManager>().AddScore(1);
 
-            Destroy(other.gameObject); // Destroy the bullet
-            Destroy(gameObject);       // Destroy the enemy
+            Destroy(other.gameObject);
+            Destroy(gameObject);
+        }
+
+
+
+
+
+        if (other.CompareTag("Player"))
+        {
+            //  DAMAGE THE PLAYER HERE
+            Player player = other.GetComponent<Player>();  // Try to get the Player script
+
+
+            Destroy(gameObject);  // Enemy dies when touching player
         }
     }
 
